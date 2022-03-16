@@ -1,11 +1,12 @@
 {
-	"linters": {
-		"*.+{js,jsx}": [
-			"eslint"
-		],
-		"**/*.+{js,jsx,json,css,less,scss,sass,graphql}": [
-			"prettier --write",
-			"git add"
-		]
-	}
+  "**/*.+{js,jsx,ts,tsx,json,css,less,scss,sass,graphql}": [
+    "prettier --write",
+    "git add"
+  ],
+  "*.+{js,jsx,ts,tsx}": [
+    "eslint --fix --fix-type layout",
+  ],
+  "src/**/*.spec.*": [
+		"jest --findRelatedTests --coverage=false"
+	]
 }
