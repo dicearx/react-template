@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 const WebpackNotifierPlugin = require('webpack-notifier')
 
 module.exports = {
-  entry: ["babel-polyfill", "./src/index.js"],
+  entry: "./src/index.tsx",
   output: {
     filename: 'index.bundle.js',
     path: path.resolve('./build'),
@@ -12,7 +12,7 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     host: process.env.HOST, // Defaults to `localhost`
-    open: false, // Open the page in browser
+    open: true, // Open the page in browser
     overlay: true,
     port: process.env.PORT, // Defaults to 8080
     publicPath: '/',
@@ -21,11 +21,22 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "ts-loader"
+        }
+      },
+      {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader"
         }
+      },
+      {
+        test: /\.(jpg|jpeg|png|gif|mp3|svg)$/,
+        use: ["file-loader"],
       },
       {
         test: /\.html$/,
@@ -36,6 +47,9 @@ module.exports = {
         ]
       }
     ]
+  },
+  resolve: {
+    extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
   },
   plugins: [
     new HtmlWebpackPlugin({
