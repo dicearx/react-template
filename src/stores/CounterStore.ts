@@ -1,4 +1,4 @@
-import { observable, action, computed, autorun } from 'mobx'
+import { action, computed, makeObservable, observable } from 'mobx'
 import { RootStore } from '../RootStore'
 
 export default class CounterStore {
@@ -8,21 +8,18 @@ export default class CounterStore {
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore
 
-    autorun(() => console.log('REACTION', this.currentCount))
+    makeObservable(this)
   }
 
   @action addCount = () => {
     this.currentCount++
-    console.log('ADD', this.currentCount)
   }
 
   @action subCount = () => {
     this.currentCount--
-    console.log('SUB', this.currentCount)
   }
 
   @computed get count() {
-    console.log('GET', this.currentCount)
     return this.currentCount
   }
 }
