@@ -7,10 +7,10 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     host: process.env.HOST, // Defaults to `localhost`
-    overlay: true,
     open: true, // Open the page in browser
-    publicPath: '/',
+    overlay: true,
     port: process.env.PORT, // Defaults to 8080
+    publicPath: '/',
     stats: 'errors-only', // Display only errors to reduce the amount of output.
   },
   entry: './src/index.tsx',
@@ -19,28 +19,22 @@ module.exports = {
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'ts-loader',
-        },
+        loader: 'ts-loader',
       },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
+        loader: 'babel-loader',
       },
       {
-        test: /\.(jpg|jpeg|png|gif|mp3|svg)$/,
-        use: ['file-loader'],
+        test: /\.(jpe?g|gif|png|svg|woff|ttf|wav|mp3)$/i,
+        exclude: /node_modules/,
+        loader: 'file-loader',
       },
       {
         test: /\.html$/,
-        use: [
-          {
-            loader: 'html-loader',
-          },
-        ],
+        exclude: /node_modules/,
+        loader: 'html-loader',
       },
     ],
   },

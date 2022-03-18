@@ -4,14 +4,14 @@
   "description": "",
   "main": "src/index.tsx",
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch --no-coverage",
-    "build": "webpack --mode production",
+    "build": "rm -rf ./build && webpack --mode production",
     "dev": "webpack-dev-server --mode development",
     "lint": "eslint --quiet --ext .tsx,.ts,.js .",
-    "typechecking": "tsc --noEmit",
     "pre:commit": "lint-staged --",
-    "pre:push": "npm run typechecking && npm run test -- --no-coverage"
+    "pre:push": "npm run build && npm run typechecking && npm run test -- --no-coverage",
+    "test": "jest",
+    "test:watch": "jest --watch --no-coverage",
+    "typechecking": "tsc --noEmit"
   },
   "repository": {
     "type": "git"
