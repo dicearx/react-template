@@ -10,7 +10,7 @@ export default class App extends React.Component {
 
         <Counter />
 
-        <img src="/assets/hilarious.gif" />
+        <img src="./assets/hilarious.gif" />
       </RootStoreContext.Provider>
     )
   }

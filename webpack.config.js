@@ -1,62 +1,69 @@
 const path = require('path')
-const HtmlWebpackPlugin = require("html-webpack-plugin")
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const WebpackNotifierPlugin = require('webpack-notifier')
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
-  entry: "./src/index.tsx",
-  output: {
-    filename: 'index.bundle.js',
-    path: path.resolve('./build'),
-    publicPath: './'
-  },
   devServer: {
     historyApiFallback: true,
     host: process.env.HOST, // Defaults to `localhost`
-    open: true, // Open the page in browser
     overlay: true,
-    port: process.env.PORT, // Defaults to 8080
+    open: true, // Open the page in browser
     publicPath: '/',
-    stats: "errors-only", // Display only errors to reduce the amount of output.
+    port: process.env.PORT, // Defaults to 8080
+    stats: 'errors-only', // Display only errors to reduce the amount of output.
   },
+  entry: './src/index.tsx',
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "ts-loader"
-        }
+          loader: 'ts-loader',
+        },
       },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
-        }
+          loader: 'babel-loader',
+        },
       },
       {
         test: /\.(jpg|jpeg|png|gif|mp3|svg)$/,
-        use: ["file-loader"],
+        use: ['file-loader'],
       },
       {
         test: /\.html$/,
         use: [
           {
-            loader: "html-loader"
-          }
-        ]
-      }
-    ]
+            loader: 'html-loader',
+          },
+        ],
+      },
+    ],
   },
-  resolve: {
-    extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
+  output: {
+    filename: 'index.bundle.js',
+    path: path.resolve('./build'),
+    publicPath: './',
+  },
+  performance: {
+    hints: false,
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Airstream Account Linking",
-      template: "./src/index.html",
-      filename: "./index.html"
+      title: 'Airstream Account Linking',
+      template: './src/index.html',
+      filename: './index.html',
+    }),
+    new CopyPlugin({
+      patterns: [{ from: './assets/**/*' }],
     }),
     new WebpackNotifierPlugin(),
   ],
+  resolve: {
+    extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
+  },
 }
