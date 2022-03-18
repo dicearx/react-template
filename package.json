@@ -10,8 +10,8 @@
     "dev": "webpack-dev-server --mode development",
     "lint": "eslint --quiet --ext .tsx,.ts,.js .",
     "typechecking": "tsc --noEmit",
-    "precommit-check": "lint-staged --",
-    "prepush-check": "npm run typechecking && npm run test -- --no-coverage"
+    "pre:commit": "lint-staged --",
+    "pre:push": "npm run typechecking && npm run test -- --no-coverage"
   },
   "repository": {
     "type": "git"
